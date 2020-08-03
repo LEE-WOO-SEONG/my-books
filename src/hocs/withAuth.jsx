@@ -15,7 +15,7 @@ function withAuth(Component, hasToken) {
       return <Redirect to="/" />;
     }
 
-    return <Component {...props} />;
+    return <Component {...props} token={token} />;
   };
 
   C.displayName = displayName;
