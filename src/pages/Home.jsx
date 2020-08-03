@@ -182,8 +182,8 @@ function Home({ history, token }) {
   }, [token]);
 
   const signOut = useCallback(() => {
-    // localStorage.removeItem('token');
-    localStorage.removeItem('logState');
+    localStorage.removeItem('token');
+    // localStorage.removeItem('logState');
     history.push('/signin');
   }, [history]);
 
