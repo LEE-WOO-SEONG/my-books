@@ -1,8 +1,9 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { ErrorBoundary } from 'react-error-boundary';
 import { createGlobalStyle } from 'styled-components';
-import LoginContext from './contexts/LoginContext';
+import tokenService from './services/tokenService';
+import logStateService from './services/tokenService';
 
 // pages
 import Home from './pages/Home';
@@ -12,7 +13,9 @@ import FatalError from './pages/FatalError';
 
 // background img
 import booksBg from './imgs/books_bg2.jpg';
+import { useSelector } from 'react-redux';
 
+// css
 const GlobalStyle = createGlobalStyle`
 body {
   background: #fff url(${booksBg}) no-repeat;
@@ -20,43 +23,27 @@ body {
 }
 `;
 
+// component
 function App() {
-  const [keepLogin, setKeepLogin] = useState(false);
+  const logState = useSelector(state => state.auth.keepLogin);
 
-  // useEffect(() => {
-  //   if (!localStorage.getItem('logState')) return;
-
-  //   setKeepLogin(true);
-  // }, []);
-
-  const changeLogstate = () => setKeepLogin(!keepLogin);
-
-  // const removeState = useCallback(() => {
-  //   if (!keepLogin) {
-  //     localStorage.removeItem('logState');
-  //     localStorage.removeItem('token');
-  //   }
-  // }, [keepLogin]);
-
-  // window.addEventListener('unload', removeState);
+  if (!logState) {
+    window.addEventListener('unload', () => {
+      tokenService.remove();
+      logStateService.remove();
+    });
+  }
 
   return (
     <ErrorBoundary FallbackComponent={FatalError}>
       <GlobalStyle />
-      <LoginContext.Provider
-        value={{
-          keepLogin,
-          changeLogstate,
-        }}
-      >
-        <BrowserRouter>
-          <Switch>
-            <Route path="/signin" component={Signin} />
-            <Route path="/" exact component={Home} />
-            <Route component={NotFound} />
-          </Switch>
-        </BrowserRouter>
-      </LoginContext.Provider>
+      <BrowserRouter>
+        <Switch>
+          <Route path="/signin" component={Signin} />
+          <Route path="/" exact component={Home} />
+          <Route component={NotFound} />
+        </Switch>
+      </BrowserRouter>
     </ErrorBoundary>
   );
 }
