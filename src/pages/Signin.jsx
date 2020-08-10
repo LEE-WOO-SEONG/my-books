@@ -1,6 +1,6 @@
 import React from 'react';
 import withAuth from '../hocs/withAuth';
-import SigninWrapper from '../styles/signinStyle';
+import SigninWrapper from '../styles/SigninStyle';
 import SigninFormContainer from '../containers/SigninFormContainer';
 
 function Signin() {

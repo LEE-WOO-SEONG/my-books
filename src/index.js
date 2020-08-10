@@ -4,11 +4,14 @@ import 'antd/dist/antd.css';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-import create from './store/store';
+import create from './redux/create';
 import { Provider } from 'react-redux';
+import tokenService from './services/tokenService';
 
-// redux init
-const store = create();
+const token = tokenService.get();
+
+// store init
+const store = create(token);
 
 ReactDOM.render(
   <Provider store={store}>

@@ -10,4 +10,16 @@ export default class userService {
     });
     return response.data.token;
   }
+
+  static async signout(token) {
+    try {
+      await axios.delete(API_URL, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  }
 }

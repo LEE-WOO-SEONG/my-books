@@ -1,18 +1,14 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { useHistory } from 'react-router-dom';
-import tokenService from '../services/tokenService';
-import logStateService from '../services/logStateService';
-import { signOut } from '../actions/authActions';
 
 // antdesign component
 import { Button } from 'antd';
 
 // imgs
 import logoImg from '../imgs/logo.png';
+import { startSignoutSaga } from '../redux/modules/auth';
 
 function HomeHeader() {
-  const history = useHistory();
   const dispatch = useDispatch();
 
   return (
@@ -21,17 +17,15 @@ function HomeHeader() {
         <img src={logoImg} alt="" />
         My Books
       </h1>
-      <Button type="primary" onClick={doSignOut}>
+      <Button type="primary" onClick={SignOut}>
         Sign out
       </Button>
     </>
   );
 
-  function doSignOut() {
-    tokenService.remove();
-    logStateService.remove();
-    dispatch(signOut());
-    history.push('/signin');
+  // 원래 이 로직은 container에서 수행해야 한다..
+  function SignOut() {
+    dispatch(startSignoutSaga());
   }
 }
 

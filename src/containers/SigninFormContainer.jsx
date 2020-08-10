@@ -1,22 +1,28 @@
 import React from 'react';
 import SigninForm from '../components/SigninForm';
-import { signinThunk } from '../actions/authActions';
+// import { signinThunk } from '../redux/modules/auth';
+import { startSigninSaga } from '../redux/modules/auth';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
 
 export default function SigninFormContainer() {
-  const keepLogin = useSelector(state => state.auth.keepLogin);
-  const error = useSelector(state => state.auth.error);
+  const { loading, keepLogin, error } = useSelector(state => state.auth);
 
   const dispatch = useDispatch();
-  const history = useHistory();
 
   const signin = React.useCallback(
     (email, password) => {
-      dispatch(signinThunk(email, password, history, keepLogin));
+      // dispatch(signinThunk(email, password));
+      dispatch(startSigninSaga(email, password));
     },
-    [dispatch, history, keepLogin]
+    [dispatch]
   );
 
-  return <SigninForm keepLogin={keepLogin} error={error} signin={signin} />;
+  return (
+    <SigninForm
+      loading={loading}
+      keepLogin={keepLogin}
+      error={error}
+      signin={signin}
+    />
+  );
 }
