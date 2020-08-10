@@ -58,6 +58,34 @@ export const HomeStyle = styled.div`
         font-size: 1.1rem;
       }
 
+      button {
+        background-color: transparent;
+        outline: none;
+        padding: 0;
+
+        cursor: pointer;
+      }
+
+      .btn_addBook {
+        position: absolute;
+        top: 0;
+        right: 0;
+        border: none;
+        border-radius: 3px;
+        padding: 7px 12px;
+        font-size: 1rem;
+        color: #fff;
+        background-color: #339af0;
+
+        &:hover {
+          background-color: #4dabf7;
+        }
+
+        &:active {
+          background-color: #228be6;
+        }
+      }
+
       .search {
         display: inline-block;
         position: relative;
@@ -72,23 +100,15 @@ export const HomeStyle = styled.div`
           width: 250px;
         }
 
-        button {
-          background-color: transparent;
-          outline: none;
-          width: 40px;
-          height: 40px;
-          padding: 0;
-          font-size: 2rem;
-
-          cursor: pointer;
-        }
-
         .btn_search {
           border: none;
           position: absolute;
           right: 40px;
+          width: 40px;
+          height: 40px;
           color: #1864ab;
           transition: transform 0.3s;
+          font-size: 2rem;
 
           &:active {
             transform: scale(0.8);
@@ -97,8 +117,11 @@ export const HomeStyle = styled.div`
 
         .btn_reset {
           vertical-align: bottom;
+          width: 40px;
+          height: 40px;
           border: 1px solid;
           border-radius: 5px;
+          font-size: 2rem;
 
           &:hover {
             background-color: #f1f3f5;
@@ -117,6 +140,7 @@ export const HomeStyle = styled.div`
       }
 
       li {
+        position: relative;
         list-style-type: none;
         height: 270px;
 
@@ -151,12 +175,32 @@ export const HomeStyle = styled.div`
             }
           }
         }
+        .btn_editBook {
+          position: absolute;
+          top: 5px;
+          right: 30px;
+          font-size: 1.4rem;
+          color: #495057;
+
+          cursor: pointer;
+        }
+
+        .btn_removeBook {
+          position: absolute;
+          top: 5px;
+          right: 5px;
+          font-size: 1.6rem;
+          color: #e03131;
+
+          cursor: pointer;
+        }
       }
     }
   }
 `;
 
 export const NothingDiv = styled.div`
+  position: relative;
   border: 1px solid #ced4da;
   border-radius: 5px;
   padding: 100px;
